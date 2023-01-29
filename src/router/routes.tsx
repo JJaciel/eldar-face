@@ -1,6 +1,11 @@
 import { useRoutes } from "react-router-dom";
 
 import { AppLayout } from "../AppLayout";
+import { Signin } from "../authentication/signin";
+import { Signup } from "../authentication/signup";
+import { EmailVerification } from "../authentication/emailVerification";
+import { NotFound } from "../navigation/notFound";
+import { Dashboard } from "../dashboard/dashboard";
 
 export const Routes = () =>
   useRoutes([
@@ -9,15 +14,23 @@ export const Routes = () =>
       children: [
         {
           path: "/",
-          element: <div>Dashboard</div>,
+          element: <Dashboard />,
         },
         {
           path: "/signup",
-          element: <div>Signup</div>,
+          element: <Signup />,
         },
         {
           path: "/signin",
-          element: <div>Signin</div>,
+          element: <Signin />,
+        },
+        {
+          path: "/email-verification",
+          element: <EmailVerification />,
+        },
+        {
+          path: "*",
+          element: <NotFound />,
         },
       ],
     },
