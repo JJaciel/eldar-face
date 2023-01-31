@@ -10,7 +10,7 @@ import {
 
 import { auth } from "../services/firebase";
 import { createGenericContext } from "../util/context";
-import { apiSignup, apiSignin } from "../services/api-auth";
+import { apiSignup, apiSignin } from "../services/auth-api";
 
 // Generate context
 const [useAuthContext, AuthContextProvider] = createGenericContext<{

@@ -10,5 +10,9 @@ export const getFirebaseEnvVars = () => {
 };
 
 export const getAuthApiUrl = () => {
-  return process.env.REACT_APP_AUTH_API_URL;
+  return process.env.REACT_APP_AUTH_API_URL || "";
+};
+
+export const getGQLApiUrl = () => {
+  return process.env.REACT_APP_REALM_API_URL || "";
 };

@@ -11,3 +11,10 @@ export async function apiSignup(body: { email: string; password: string }) {
 export async function apiSignin(body: { idToken: string }) {
   return axios.post(`${authApiUrl}/signin`, body);
 }
+
+export async function apiRefreshToken() {
+  const token = sessionStorage.getItem("token");
+  return axios.post(`${authApiUrl}/refresh`, null, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+}
