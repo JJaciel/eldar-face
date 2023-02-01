@@ -9,24 +9,8 @@ import {
   StatGroup,
   useColorMode,
 } from "@chakra-ui/react";
-import { useQuery, gql, useLazyQuery } from "@apollo/client";
-
-const GET_USER = gql`
-  query getUser {
-    user {
-      userId
-      email
-    }
-  }
-`;
 
 export const Dashboard = () => {
-  const [getLazy, { loading, error, data: gqlData }] = useLazyQuery<{
-    user: { email: string };
-  }>(GET_USER, {
-    fetchPolicy: "no-cache",
-  });
-
   const { colorMode } = useColorMode();
   const bgColor = { light: "white", dark: "gray.700" };
 
@@ -38,21 +22,9 @@ export const Dashboard = () => {
     orders: "200",
   };
 
-  console.log(gqlData?.user);
-
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error : {error.message}</p>;
-
   return (
     <Box bg={bgColor[colorMode]} p={4}>
       <Heading as="h1" size="xl" mb={4}></Heading>
-      <button
-        onClick={() => {
-          getLazy();
-        }}
-      >
-        aqui
-      </button>
       <SimpleGrid columns={[1, null, 2]} spacing={4}>
         <StatGroup>
           <Stat>

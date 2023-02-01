@@ -95,11 +95,11 @@ export function NavidationDrawer({
                     onClick={() => {
                       setTimeout(() => {
                         onToggle();
-                        navigate("/profile");
+                        navigate("/account");
                       }, 200);
                     }}
                   >
-                    Profile
+                    Account
                   </Button>
                 </Stack>
               </HStack>

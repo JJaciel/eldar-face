@@ -75,7 +75,7 @@ export function NavigationBar({
               }}
             />
             <MenuList>
-              <MenuItem onClick={() => navigate("/profile")}>Perfil</MenuItem>
+              <MenuItem onClick={() => navigate("/account")}>Account</MenuItem>
               <MenuItem onClick={onSignout}>Close session</MenuItem>
             </MenuList>
           </Menu>

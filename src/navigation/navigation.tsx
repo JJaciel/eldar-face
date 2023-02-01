@@ -7,7 +7,7 @@ import { NavidationDrawer } from "./navigationDrawer";
 
 export function Navigation() {
   const [isLargerThanMd] = useMediaQuery("(min-width: 48em)");
-  const { user, signout } = useAuthContext();
+  const { authUser, signout } = useAuthContext();
   const { isOpen, onOpen, onClose, onToggle } = useDisclosure();
 
   const onSignout = useCallback(() => {
@@ -15,9 +15,7 @@ export function Navigation() {
     signout();
   }, [onToggle, signout]);
 
-  //   if (!user) return null;
-
-  const userDisplayName = user?.displayName || user?.email || "hola";
+  const userDisplayName = authUser?.email || "";
 
   return (
     <>

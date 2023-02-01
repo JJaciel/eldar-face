@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import {
   onAuthStateChanged,
   User,
-  Auth,
   signInWithCustomToken,
   signInWithEmailAndPassword,
   signOut,
@@ -12,24 +11,28 @@ import { auth } from "../services/firebase";
 import { createGenericContext } from "../util/context";
 import { apiSignup, apiSignin } from "../services/auth-api";
 
+interface AuthUser {
+  userId: string;
+  email: string | null;
+  emailVerified: boolean;
+}
+
 // Generate context
 const [useAuthContext, AuthContextProvider] = createGenericContext<{
   isLoading: boolean;
-  user?: User;
-  auth: Auth;
+  authUser?: AuthUser;
   signup: (userAccount: { email: string; password: string }) => Promise<void>;
   signin: (userAccount: { email: string; password: string }) => Promise<void>;
   signout: () => Promise<void>;
 }>();
 
 const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const [user, setUser] = useState<User>();
+  const [authUser, setAuthUser] = useState<User>();
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
-      const _user = user || undefined;
-      setUser(_user);
+      setAuthUser(user || undefined);
       setIsLoading(false);
     });
     return () => {
@@ -42,18 +45,40 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     sessionStorage.setItem("token", token);
   };
 
+  useEffect(() => {
+    if (!authUser) return;
+
+    const token = sessionStorage.getItem("token");
+    if (!token) {
+      const getNewToken = async () => {
+        try {
+          const idToken = await authUser.getIdToken();
+          const { headers } = await apiSignin({ idToken });
+          const bearerToken: string = headers["authorization"];
+          storeToken(bearerToken);
+        } catch (err) {
+          console.log("Error refreshing token");
+        }
+      };
+      getNewToken();
+    }
+  }, [authUser]);
+
   const clearToken = () => {
     sessionStorage.removeItem("token");
   };
 
   const signup = async (userAccount: { email: string; password: string }) => {
     const apiResponse = await apiSignup(userAccount);
-
     const bearerToken: string = apiResponse.headers["authorization"];
     storeToken(bearerToken);
-
     const customToken = apiResponse.headers["f-token"];
-    const userCredential = await signInWithCustomToken(auth, customToken);
+    await signInWithCustomToken(auth, customToken);
+  };
+
+  const signout = async () => {
+    await signOut(auth);
+    clearToken();
   };
 
   const signin = async ({
@@ -63,31 +88,34 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     email: string;
     password: string;
   }) => {
-    const authUserCredential = await signInWithEmailAndPassword(
-      auth,
-      email,
-      password
-    );
-    const idToken = await authUserCredential.user.getIdToken();
-    const { data, headers } = await apiSignin({ idToken });
+    try {
+      const authUserCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      const idToken = await authUserCredential.user.getIdToken();
+      const { headers } = await apiSignin({ idToken });
 
-    const bearerToken: string = headers["authorization"];
-    storeToken(bearerToken);
-
-    const user: { uid: string; email: string } = data.user;
-  };
-
-  const signout = async () => {
-    await signOut(auth);
-    clearToken();
+      const bearerToken: string = headers["authorization"];
+      storeToken(bearerToken);
+    } catch (e) {
+      await signout();
+      throw e;
+    }
   };
 
   return (
     <AuthContextProvider
       value={{
         isLoading,
-        user,
-        auth,
+        authUser: authUser
+          ? {
+              userId: authUser.uid,
+              email: authUser.email,
+              emailVerified: authUser.emailVerified,
+            }
+          : undefined,
         signup,
         signin,
         signout,

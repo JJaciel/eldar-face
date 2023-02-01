@@ -12,7 +12,7 @@ import {
 import { useAuthContext } from "./useAuthContext";
 
 export const EmailVerification = () => {
-  const { user } = useAuthContext();
+  const { authUser } = useAuthContext();
 
   const navigate = useNavigate();
 
@@ -28,7 +28,7 @@ export const EmailVerification = () => {
             Verify your email
           </Heading>
         </Box>
-        <ScaleFade in={!!user} initialScale={0.2}></ScaleFade>
+        <ScaleFade in={!!authUser} initialScale={0.2}></ScaleFade>
         <Box
           py={{ base: "0", sm: "8" }}
           px={{ base: "4", sm: "10" }}
