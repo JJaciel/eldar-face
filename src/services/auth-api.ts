@@ -14,6 +14,8 @@ export async function apiSignin(body: { idToken: string }) {
 
 export async function apiRefreshToken() {
   const token = sessionStorage.getItem("token");
+  if (!token) throw new Error("No token stored");
+
   return axios.post(`${authApiUrl}/refresh`, null, {
     headers: { Authorization: `Bearer ${token}` },
   });

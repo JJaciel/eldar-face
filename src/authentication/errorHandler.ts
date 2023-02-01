@@ -1,6 +1,6 @@
 import { AuthErrorCodes, AuthError } from "firebase/auth";
 
-export function getFirebaseErrorMessage(error: AuthError) {
+export function getErrorMessage(error: AuthError) {
   switch (error.code) {
     case AuthErrorCodes.USER_DELETED: {
       return {
@@ -22,7 +22,7 @@ export function getFirebaseErrorMessage(error: AuthError) {
     }
     default: {
       return {
-        title: "Unexpected Firebase Error",
+        title: "Error",
         description: error.message,
       };
     }

@@ -28,7 +28,7 @@ import {
 } from "react-icons/ri";
 
 import { useAuthContext } from "./useAuthContext";
-import { getFirebaseErrorMessage } from "./firabaseErrorHandler";
+import { getErrorMessage } from "./errorHandler";
 
 interface FormValues {
   email: string;
@@ -54,7 +54,7 @@ export const Signup = () => {
   const handleError = useCallback(
     (err: any) => {
       const errorMessage = err.code
-        ? getFirebaseErrorMessage(err)
+        ? getErrorMessage(err)
         : {
             title: "Unexpected Error",
             description: err.message,
