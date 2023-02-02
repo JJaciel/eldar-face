@@ -2,14 +2,11 @@ import { useCallback } from "react";
 import { useMutation, gql } from "@apollo/client";
 import {
   Avatar,
-  Box,
   ButtonGroup,
   Center,
-  Container,
   Editable,
   EditableInput,
   EditablePreview,
-  Heading,
   Icon,
   IconButton,
   Stack,
@@ -17,12 +14,14 @@ import {
   Text,
   useEditableControls,
   useToast,
-  Spinner,
 } from "@chakra-ui/react";
-
 import { RiAtLine, RiUser4Line } from "react-icons/ri";
 import { CheckIcon, CloseIcon } from "@chakra-ui/icons";
+
 import { useUserContext } from "../useUserContext";
+import { PageContainer } from "../../components/pageContainer";
+import { Header } from "../../components/header";
+import { Surface } from "../../components/surface";
 
 const EditableControls = () => {
   const { isEditing, getSubmitButtonProps, getCancelButtonProps } =
@@ -94,51 +93,22 @@ export const Account = () => {
   const userDisplayName = user?.username;
 
   return (
-    <Container
-      maxW="lg"
-      py={{ base: "12", md: "24" }}
-      px={{ base: "0", sm: "8" }}
-      boxShadow={{ base: "none", sm: "md" }}
-    >
+    <PageContainer>
       <Stack spacing="8">
-        <Stack spacing="6" px={{ base: "4", sm: "10" }}>
-          <Heading size={"lg"} textAlign={"center"}>
-            Account
-          </Heading>
-          <Center>
-            <Avatar
-              name={userDisplayName}
-              transition="all 0.2s"
-              color="white"
-              bg={"app.primary.300"}
-              size="2xl"
-              boxShadow="lg"
-              mx="auto"
-            />
-          </Center>
-        </Stack>
-        {isLoading ? (
-          <Box
-            height="100%"
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
-          >
-            <Spinner
-              size="xl"
-              thickness="4px"
-              speed="0.65s"
-              emptyColor="gray.200"
-              color="blue.500"
-            />
-          </Box>
-        ) : (
-          <Box
-            py={{ base: "0", sm: "8" }}
-            px={{ base: "4", sm: "10" }}
-            bg={"transparent"}
-            borderRadius={{ base: "none", sm: "xl" }}
-          >
+        <Header>Account</Header>
+        <Surface>
+          <Stack spacing="6">
+            <Center>
+              <Avatar
+                name={userDisplayName}
+                transition="all 0.2s"
+                color="white"
+                bg={"app.primary.300"}
+                size={{ base: "lg", sm: "xl" }}
+                boxShadow="lg"
+                mx="auto"
+              />
+            </Center>
             <Stack
               pl={{ base: "15%", sm: "20%" }}
               spacing="6"
@@ -198,9 +168,9 @@ export const Account = () => {
                 </Editable>
               </HStack>
             </Stack>
-          </Box>
-        )}
+          </Stack>
+        </Surface>
       </Stack>
-    </Container>
+    </PageContainer>
   );
 };

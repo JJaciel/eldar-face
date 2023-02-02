@@ -3,7 +3,7 @@ import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import { Container, Box, Fade } from "@chakra-ui/react";
 
 import { useAuthContext } from "./authentication/useAuthContext";
-import { Navigation } from "./navigation/navigation";
+import { Navigation } from "./platform/navigation/navigation";
 
 export function AppLayout() {
   const { authUser, isLoading } = useAuthContext();

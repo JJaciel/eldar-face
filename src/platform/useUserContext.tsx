@@ -1,11 +1,11 @@
 import React from "react";
 import { useQuery, gql } from "@apollo/client";
 
-import { createGenericContext } from "./util/context";
+import { createGenericContext } from "../util/context";
 
 const GET_USER = gql`
   query GetUser {
-    user {
+    user: getUser {
       userId
       email
       username
@@ -25,13 +25,7 @@ const [useUserContext, UserContextProvider] = createGenericContext<{
   isLoading: boolean;
 }>();
 
-const UserProvider = ({
-  children,
-  userId,
-}: {
-  children: React.ReactNode;
-  userId: string;
-}) => {
+const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const { loading, error, data } = useQuery<{
     user: User;
   }>(GET_USER);

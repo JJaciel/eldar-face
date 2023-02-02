@@ -4,10 +4,10 @@ import { AppLayout } from "../appLayout";
 import { Signin } from "../authentication/signin";
 import { Signup } from "../authentication/signup";
 import { EmailVerification } from "../authentication/emailVerification";
-import { NotFound } from "../navigation/notFound";
-import { Dashboard } from "../dashboard/dashboard";
-import { Account } from "../account/account";
-import { UserLayout } from "../userLayout";
+import { NotFound } from "../platform/navigation/notFound";
+import { Dashboard } from "../platform/dashboard/dashboard";
+import { Account } from "../platform/account/account";
+import { UserLayout } from "../platform/userLayout";
 
 export const Routes = () =>
   useRoutes([

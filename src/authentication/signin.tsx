@@ -7,11 +7,8 @@ import {
   FormControl,
   Input,
   Button,
-  Box,
   Icon,
   IconButton,
-  Container,
-  Heading,
   Text,
   Stack,
   InputGroup,
@@ -29,6 +26,9 @@ import {
 
 import { useAuthContext } from "./useAuthContext";
 import { getErrorMessage } from "./errorHandler";
+import { PageContainer } from "../components/pageContainer";
+import { Header } from "../components/header";
+import { Surface } from "../components/surface";
 
 interface FormValues {
   email: string;
@@ -94,24 +94,10 @@ export const Signin = () => {
   };
 
   return (
-    <Container
-      maxW="lg"
-      py={{ base: "12", md: "24" }}
-      px={{ base: "0", sm: "8" }}
-    >
+    <PageContainer>
       <Stack spacing="8">
-        <Box py={{ base: "0", sm: "8" }} px={{ base: "4", sm: "10" }}>
-          <Heading size={"lg"} textAlign={{ sm: "center" }}>
-            Signin
-          </Heading>
-        </Box>
-        <Box
-          py={{ base: "0", sm: "8" }}
-          px={{ base: "4", sm: "10" }}
-          bg={"transparent"}
-          boxShadow={{ base: "none", sm: "md" }}
-          borderRadius={{ base: "none", sm: "xl" }}
-        >
+        <Header>Signin</Header>
+        <Surface>
           <form onSubmit={handleSubmit(onSubmit)}>
             <Stack spacing="6">
               {/* email */}
@@ -200,8 +186,8 @@ export const Signin = () => {
               </Button>
             </Stack>
           </form>
-        </Box>
+        </Surface>
       </Stack>
-    </Container>
+    </PageContainer>
   );
 };
