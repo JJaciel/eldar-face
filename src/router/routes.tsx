@@ -5,9 +5,14 @@ import { Signin } from "../authentication/signin";
 import { Signup } from "../authentication/signup";
 import { EmailVerification } from "../authentication/emailVerification";
 import { NotFound } from "../platform/navigation/notFound";
-import { Dashboard } from "../platform/dashboard/dashboard";
+import { Location } from "../platform/dashboard/location";
 import { Account } from "../platform/account/account";
 import { UserLayout } from "../platform/userLayout";
+import { Items } from "../platform/items/items";
+import { ItemDetail } from "../platform/items/itemDetail";
+import { Lists } from "../platform/lists/lists";
+import { ListDetail } from "../platform/lists/listDetail";
+import { ListFulfill } from "../platform/lists/listFulfill";
 
 export const Routes = () =>
   useRoutes([
@@ -19,7 +24,31 @@ export const Routes = () =>
           children: [
             {
               path: "/",
-              element: <Dashboard />,
+              element: <Location />,
+            },
+            {
+              path: "/items",
+              element: <Items />,
+              children: [
+                {
+                  path: ":itemId",
+                  element: <ItemDetail />,
+                },
+              ],
+            },
+            {
+              path: "/lists",
+              element: <Lists />,
+              children: [
+                {
+                  path: ":listId",
+                  element: <ListDetail />,
+                },
+                {
+                  path: ":listId/:fulfillmentId",
+                  element: <ListFulfill />,
+                },
+              ],
             },
             {
               path: "/account",

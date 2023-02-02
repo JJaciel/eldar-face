@@ -53,7 +53,7 @@ const UPDATE_USER_USERNAME = gql`
 
 export const Account = () => {
   const toast = useToast();
-  const { user, isLoading } = useUserContext();
+  const { user } = useUserContext();
 
   const [updateUsername] = useMutation(UPDATE_USER_USERNAME, {
     refetchQueries: ["GetUser"],
