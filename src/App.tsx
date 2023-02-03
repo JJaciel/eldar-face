@@ -1,14 +1,15 @@
 import { ChakraProvider } from "@chakra-ui/react";
-import { AuthProvider } from "./authentication/useAuthContext";
+import { RouterProvider } from "react-router-dom";
 
-import { Router } from "./router/router";
+import { AuthProvider } from "./authentication/useAuthContext";
+import { router } from "./router/router";
 import { customTheme } from "./config/chakra-custom-theme";
 
 export const App = () => {
   return (
     <ChakraProvider theme={customTheme}>
       <AuthProvider>
-        <Router />
+        <RouterProvider router={router} />
       </AuthProvider>
     </ChakraProvider>
   );

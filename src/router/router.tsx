@@ -1,10 +1,4 @@
-import { BrowserRouter } from "react-router-dom";
-import { Routes } from "./routes";
+import { createBrowserRouter } from "react-router-dom";
+import { routes } from "./routes";
 
-export const Router = () => {
-  return (
-    <BrowserRouter>
-      <Routes />
-    </BrowserRouter>
-  );
-};
+export const router = createBrowserRouter(routes);

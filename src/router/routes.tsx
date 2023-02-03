@@ -1,4 +1,4 @@
-import { useRoutes } from "react-router-dom";
+import { redirect } from "react-router-dom";
 
 import { AppLayout } from "../appLayout";
 import { Signin } from "../authentication/signin";
@@ -14,65 +14,70 @@ import { Lists } from "../platform/lists/lists";
 import { ListDetail } from "../platform/lists/listDetail";
 import { ListFulfill } from "../platform/lists/listFulfill";
 
-export const Routes = () =>
-  useRoutes([
-    {
-      element: <AppLayout />,
-      children: [
-        {
-          element: <UserLayout />,
-          children: [
-            {
-              path: "/",
-              element: <Location />,
+export const routes = [
+  {
+    element: <AppLayout />,
+    children: [
+      {
+        element: <UserLayout />,
+        children: [
+          {
+            path: "/",
+            loader: async () => {
+              return redirect("/location");
             },
-            {
-              path: "/items",
-              element: <Items />,
-              children: [
-                {
-                  path: ":itemId",
-                  element: <ItemDetail />,
-                },
-              ],
-            },
-            {
-              path: "/lists",
-              element: <Lists />,
-              children: [
-                {
-                  path: ":listId",
-                  element: <ListDetail />,
-                },
-                {
-                  path: ":listId/:fulfillmentId",
-                  element: <ListFulfill />,
-                },
-              ],
-            },
-            {
-              path: "/account",
-              element: <Account />,
-            },
-          ],
-        },
+          },
+          {
+            path: "/location",
+            element: <Location />,
+          },
+          {
+            path: "/items",
+            element: <Items />,
+            children: [
+              {
+                path: ":itemId",
+                element: <ItemDetail />,
+              },
+            ],
+          },
+          {
+            path: "/lists",
+            element: <Lists />,
+            children: [
+              {
+                path: ":listId",
+                element: <ListDetail />,
+              },
+              {
+                path: ":listId/:fulfillmentId",
+                element: <ListFulfill />,
+              },
+            ],
+          },
+          {
+            path: "/account",
+            element: <Account />,
+          },
+        ],
+      },
 
-        {
-          path: "/signup",
-          element: <Signup />,
-        },
-        {
-          path: "/signin",
-          element: <Signin />,
-        },
-        {
-          path: "/email-verification",
-          element: <EmailVerification />,
-        },
-        {
-          path: "*",
-          element: <NotFound />,
-        },
-      ],
-    },
-  ]);
+      {
+        path: "/signup",
+        element: <Signup />,
+      },
+      {
+        path: "/signin",
+        element: <Signin />,
+      },
+      {
+        path: "/email-verification",
+        element: <EmailVerification />,
+      },
+      {
+        path: "*",
+        element: <NotFound />,
+      },
+    ],
+  },
+];
