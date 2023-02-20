@@ -4,20 +4,20 @@ import { AppLayout } from "../appLayout";
 import { Signin } from "../authentication/signin";
 import { Signup } from "../authentication/signup";
 import { EmailVerification } from "../authentication/emailVerification";
-import { NotFound } from "../platform/navigation/notFound";
-import { SetupContainer } from "../platform/setup/setupContainer";
-import { LocationsContainer } from "../platform/locations/locationsContainer";
-import { LocationContainer } from "../platform/locations/locationContainer";
-import { Account } from "../platform/account/account";
-import { UserLayout } from "../platform/userLayout";
-import { Items } from "../platform/items/items";
-import { ItemDetail } from "../platform/items/itemDetail";
-import { Lists } from "../platform/lists/lists";
-import { ListDetail } from "../platform/lists/listDetail";
-import { ListFulfill } from "../platform/lists/listFulfill";
+import { NotFound } from "../navigation/notFound";
+import { SetupContainer } from "../setup/setupContainer";
+import { LocationsContainer } from "../locations/locationsContainer";
+import { LocationContainer } from "../locations/locationContainer";
+import { Account } from "../account/account";
+import { UserLayout } from "../userLayout";
+import { Items } from "../items/items";
+import { ItemDetail } from "../items/itemDetail";
+import { Lists } from "../lists/lists";
+import { ListDetail } from "../lists/listDetail";
+import { ListFulfill } from "../lists/listFulfill";
 
-import { SetupUser } from "../platform/setup/setupUser";
-import { SetupLocation } from "../platform/setup/setupLocation";
+import { SetupUser } from "../setup/setupUser";
+import { SetupLocation } from "../setup/setupLocation";
 
 export const routes = [
   {

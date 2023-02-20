@@ -2,9 +2,9 @@ import { useNavigate } from "react-router-dom";
 import { Button, Text, Stack } from "@chakra-ui/react";
 
 import { useAuthContext } from "./useAuthContext";
-import { PageContainer } from "../components/pageContainer";
-import { Header } from "../components/header";
-import { Surface } from "../components/surface";
+import { PageContainer } from "../display/pageContainer";
+import { Header } from "../display/header";
+import { Surface } from "../display/surface";
 
 export const EmailVerification = () => {
   const { authUser } = useAuthContext();

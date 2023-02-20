@@ -1,9 +1,9 @@
 import { useParams } from "react-router-dom";
 
-import { Form } from "../../components/form/form";
-import { TextInput } from "../../components/form/textInput";
-import { Surface } from "../../components/surface";
-import { ContinueButton } from "../../components/continueButton";
+import { Form } from "../display/form/form";
+import { TextInput } from "../display/form/textInput";
+import { Surface } from "../display/surface";
+import { ContinueButton } from "../display/continueButton";
 import { useSetupContext } from "./setupContainer";
 
 interface StepFormValues {

@@ -1,14 +1,14 @@
 import { Stack, Grid, GridItem } from "@chakra-ui/react";
 
-import { PageContainer } from "../../components/pageContainer";
-import { Header } from "../../components/header";
-import { Surface } from "../../components/surface";
+import { PageContainer } from "../display/pageContainer";
+import { Header } from "../display/header";
+import { Surface } from "../display/surface";
 
-export const ListDetail = () => {
+export const Lists = () => {
   return (
     <PageContainer>
       <Stack spacing="8">
-        <Header>ListDetail</Header>
+        <Header>Lists</Header>
         <Surface>
           <Grid
             h="200px"

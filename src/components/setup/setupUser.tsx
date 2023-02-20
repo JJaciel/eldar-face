@@ -3,11 +3,11 @@ import { useMutation, gql } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "@chakra-ui/react";
 
-import { Form } from "../../components/form/form";
-import { TextInput } from "../../components/form/textInput";
-import { CheckboxInput } from "../../components/form/checkboxInput";
-import { Surface } from "../../components/surface";
-import { ContinueButton } from "../../components/continueButton";
+import { Form } from "../display/form/form";
+import { TextInput } from "../display/form/textInput";
+import { CheckboxInput } from "../display/form/checkboxInput";
+import { Surface } from "../display/surface";
+import { ContinueButton } from "../display/continueButton";
 import { useSetupContext } from "./setupContainer";
 
 interface StepFormValues {

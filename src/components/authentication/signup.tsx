@@ -1,6 +1,6 @@
-import { useCallback, useState } from "react";
-import { useNavigate, Link as RouterLink } from "react-router-dom";
+import { useState, useCallback } from "react";
 import { useForm } from "react-hook-form";
+import { useNavigate, Link as RouterLink } from "react-router-dom";
 import {
   FormErrorMessage,
   FormLabel,
@@ -27,28 +27,30 @@ import {
 
 import { useAuthContext } from "./useAuthContext";
 import { getErrorMessage } from "./errorHandler";
-import { PageContainer } from "../components/pageContainer";
-import { Header } from "../components/header";
-import { Surface } from "../components/surface";
+import { PageContainer } from "../display/pageContainer";
+import { Header } from "../display/header";
+import { Surface } from "../display/surface";
 
 interface FormValues {
   email: string;
   password: string;
 }
 
-export const Signin = () => {
+export const Signup = () => {
   const { isOpen, onToggle } = useDisclosure();
   const [isLoading, setIsLoading] = useState(false);
+  const { signup } = useAuthContext();
+
   const toast = useToast();
+
   const {
     handleSubmit,
     register,
     setFocus,
-    formState: { errors, isSubmitting },
     reset,
+    formState: { errors, isSubmitting },
   } = useForm<FormValues>();
   const navigate = useNavigate();
-  const { signin } = useAuthContext();
 
   const handleError = useCallback(
     (err: any) => {
@@ -58,8 +60,8 @@ export const Signin = () => {
             title: "Unexpected Error",
             description: err.message,
           };
-      reset();
       toast.closeAll();
+      reset();
       toast({
         title: errorMessage.title,
         description: errorMessage.description,
@@ -75,18 +77,24 @@ export const Signin = () => {
 
   const onSubmit = useCallback(
     async ({ email, password }: FormValues) => {
+      setIsLoading(true);
       try {
-        setIsLoading(true);
-        await signin({ email, password });
+        await signup({ email, password });
         setIsLoading(false);
-        setTimeout(() => {
-          navigate("/");
-        }, 200);
+        toast({
+          title: "Account created",
+          status: "success",
+          position: "top",
+          onCloseComplete: () => {
+            // navigate("email-verification");
+            navigate("/");
+          },
+        });
       } catch (e: any) {
         handleError(e);
       }
     },
-    [signin, navigate, handleError]
+    [signup, toast, handleError, navigate]
   );
 
   const onClickReveal = () => {
@@ -97,7 +105,7 @@ export const Signin = () => {
   return (
     <PageContainer>
       <Stack spacing="8">
-        <Header>Signin</Header>
+        <Header>Signup</Header>
         <Surface>
           <form onSubmit={handleSubmit(onSubmit)}>
             <Stack spacing="6">
@@ -113,7 +121,7 @@ export const Signin = () => {
                     type="email"
                     variant={"filled"}
                     {...register("email", {
-                      required: "Requerido",
+                      required: true,
                     })}
                   />
                 </InputGroup>
@@ -134,7 +142,7 @@ export const Signin = () => {
                     autoComplete="current-password"
                     variant={"filled"}
                     {...register("password", {
-                      required: "Requerido",
+                      required: true,
                       minLength: 6,
                       maxLength: 40,
                     })}
@@ -152,40 +160,32 @@ export const Signin = () => {
                   {errors.password && errors.password.message}
                 </FormErrorMessage>
               </FormControl>
-              {/* signin */}
-              <Button
-                type="submit"
-                variant={"solid"}
-                isLoading={isSubmitting}
-                isDisabled={isLoading}
-                size={"md"}
-                fontSize="md"
-              >
-                signin
-              </Button>
-              {/* signup redirect */}
+              {/* signup */}
               <Box display="flex" justifyContent="center">
-                <Link
-                  mx="auto"
-                  maxW="200px"
-                  size="xs"
-                  as={RouterLink}
-                  to="/signup"
-                  textDecoration={"underline"}
+                <Button
+                  minW="200px"
+                  type="submit"
+                  variant={"solid"}
+                  isLoading={isSubmitting}
+                  isDisabled={isLoading}
+                  size={"md"}
+                  fontSize="md"
                 >
-                  I don't have an account
-                </Link>
+                  signup
+                </Button>
               </Box>
+
+              {/* login redirect */}
               <Box display="flex" justifyContent="center">
                 <Link
                   mx="auto"
                   maxW="200px"
                   size="xs"
                   as={RouterLink}
-                  to="/forgotPassword"
+                  to="/signin"
                   textDecoration={"underline"}
                 >
-                  I forgot my password
+                  I already have an account
                 </Link>
               </Box>
             </Stack>

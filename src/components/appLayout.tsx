@@ -2,8 +2,8 @@ import { useEffect } from "react";
 import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import { Container, Box, Fade } from "@chakra-ui/react";
 
-import { useAuthContext } from "./authentication/useAuthContext";
-import { Navigation } from "./platform/navigation/navigation";
+import { useAuthContext } from "./components/authentication/useAuthContext";
+import { Navigation } from "./components/navigation/navigation";
 
 export function AppLayout() {
   const { authUser, isLoading } = useAuthContext();

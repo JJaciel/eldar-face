@@ -7,9 +7,9 @@ import {
   signOut,
 } from "firebase/auth";
 
-import { auth } from "../services/firebase";
-import { createGenericContext } from "../util/context";
-import { apiSignup, apiSignin } from "../services/auth-api";
+import { auth } from "../../services/firebase";
+import { createGenericContext } from "../../util/context";
+import { apiSignup, apiSignin } from "../../services/auth-api";
 
 interface AuthUser {
   userId: string;

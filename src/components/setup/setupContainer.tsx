@@ -1,8 +1,8 @@
 import { Outlet, useOutletContext } from "react-router-dom";
 import { useQuery, gql } from "@apollo/client";
 
-import { PageContainer } from "../../components/pageContainer";
-import { LoadingScreen } from "../../components/loadingScreen";
+import { PageContainer } from "../display/pageContainer";
+import { LoadingScreen } from "../display/loadingScreen";
 
 const GET_USER_DATA = gql`
   query GetUserData {

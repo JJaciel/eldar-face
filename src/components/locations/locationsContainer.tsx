@@ -2,13 +2,13 @@ import { Fade } from "@chakra-ui/react";
 import { useQuery, gql } from "@apollo/client";
 import { Outlet, useNavigate } from "react-router-dom";
 
-import { PageContainer } from "../../components/pageContainer";
-import { Header } from "../../components/header";
-import { AddButton } from "../../components/addButton";
+import { PageContainer } from "../display/pageContainer";
+import { Header } from "../display/header";
+import { AddButton } from "../display/addButton";
 import { LocationsList } from "./locationsList";
-import { LoadingScreen } from "../../components/loadingScreen";
-import { ErrorView } from "../../components/error/errorView";
-import { NotFoundView } from "../../components/emptyState/notFoundView";
+import { LoadingScreen } from "../display/loadingScreen";
+import { ErrorView } from "../display/error/errorView";
+import { NotFoundView } from "../display/emptyState/notFoundView";
 
 const GET_LOCATIONS = gql`
   query GetLocations {

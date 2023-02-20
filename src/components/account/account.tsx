@@ -19,9 +19,9 @@ import { RiAtLine, RiUser4Line } from "react-icons/ri";
 import { CheckIcon, CloseIcon } from "@chakra-ui/icons";
 
 import { useUserContext } from "../useUserContext";
-import { PageContainer } from "../../components/pageContainer";
-import { Header } from "../../components/header";
-import { Surface } from "../../components/surface";
+import { PageContainer } from "../display/pageContainer";
+import { Header } from "../display/header";
+import { Surface } from "../display/surface";
 
 const EditableControls = () => {
   const { isEditing, getSubmitButtonProps, getCancelButtonProps } =

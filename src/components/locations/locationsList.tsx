@@ -1,7 +1,7 @@
 import { Box, Text } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 
-import { Surface } from "../../components/surface";
+import { Surface } from "../display/surface";
 
 interface ILocation {
   locationId: string;

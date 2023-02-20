@@ -2,7 +2,7 @@ import { Outlet, useNavigate } from "react-router-dom";
 import { Fade } from "@chakra-ui/react";
 import { useQuery, gql } from "@apollo/client";
 
-import { useAuthContext } from "../authentication/useAuthContext";
+import { useAuthContext } from "./authentication/useAuthContext";
 import { UserProvider } from "./useUserContext";
 
 const GET_USER = gql`
