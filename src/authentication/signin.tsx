@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link as RouterLink } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import {
   FormErrorMessage,
@@ -9,13 +9,14 @@ import {
   Button,
   Icon,
   IconButton,
-  Text,
   Stack,
+  Box,
   InputGroup,
   InputLeftElement,
   InputRightElement,
   useDisclosure,
   useToast,
+  Link,
 } from "@chakra-ui/react";
 import {
   RiMailLine,
@@ -163,27 +164,30 @@ export const Signin = () => {
                 signin
               </Button>
               {/* signup redirect */}
-              <Button
-                variant="ghost"
-                fontSize="xs"
-                size={"sm"}
-                onClick={() => {
-                  navigate("/signup");
-                }}
-              >
-                <Text fontWeight="bold">I don't have an account</Text>
-              </Button>
-              {/* password forgoten */}
-              <Button
-                variant="ghost"
-                fontSize="xs"
-                size={"sm"}
-                // onClick={() => {
-                //   navigate("/forgotPassword");
-                // }}
-              >
-                <Text fontWeight="bold">I forgot my password</Text>
-              </Button>
+              <Box display="flex" justifyContent="center">
+                <Link
+                  mx="auto"
+                  maxW="200px"
+                  size="xs"
+                  as={RouterLink}
+                  to="/signup"
+                  textDecoration={"underline"}
+                >
+                  I don't have an account
+                </Link>
+              </Box>
+              <Box display="flex" justifyContent="center">
+                <Link
+                  mx="auto"
+                  maxW="200px"
+                  size="xs"
+                  as={RouterLink}
+                  to="/forgotPassword"
+                  textDecoration={"underline"}
+                >
+                  I forgot my password
+                </Link>
+              </Box>
             </Stack>
           </form>
         </Surface>

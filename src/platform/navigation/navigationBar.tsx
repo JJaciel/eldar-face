@@ -8,6 +8,7 @@ import {
   MenuList,
   MenuItem,
   Box,
+  Flex,
 } from "@chakra-ui/react";
 import { RiMenu2Fill } from "react-icons/ri";
 
@@ -34,29 +35,35 @@ export function NavigationBar({
     <Box
       as="nav"
       display="flex"
-      bg={{ base: "transparent", md: "white" }}
+      boxShadow="0 6px 16px -6px grey;"
       alignContent="center"
       justifyContent="space-between"
       w="100%"
-      h={{ base: 14, sm: 20 }}
-      p={{ base: 2, sm: 4, md: 6 }}
-      pos={"absolute"}
-      mt={0}
+      h={16}
+      p={2}
+      bgColor="light.background.main"
+      zIndex="sticky"
+      position="fixed"
+      top={0}
     >
       <Fade
         in={!isOpen}
         transition={{ enter: { delay: 0.3 }, exit: { delay: 0.3 } }}
       >
-        <MenuIconButton
-          onClick={onOpen}
-          aria-label="open menu"
-          icon={<Icon as={RiMenu2Fill} />}
-          _hover={{
-            bg: "gray.100",
-            fontSize: "2xl",
-            transitionDelay: 0.1,
-          }}
-        />
+        <Flex h="100%" alignItems="center">
+          <MenuIconButton
+            onClick={onOpen}
+            aria-label="open menu"
+            icon={<Icon as={RiMenu2Fill} />}
+            bgColor="light.primary.main"
+            color="light.primary.onMain"
+            _hover={{
+              bgColor: "light.primary.onHover",
+              fontSize: "2xl",
+              transitionDelay: 0.1,
+            }}
+          />
+        </Flex>
       </Fade>
 
       <HStack display="flex" alignItems="center">
@@ -66,11 +73,11 @@ export function NavigationBar({
               as={MenuButton}
               name={displayName}
               transition="all 0.2s"
-              color="app.primary.500"
-              bg={"app.primary.200"}
+              bgColor="light.primary.main"
+              color="light.primary.onMain"
               boxShadow="lg"
               _hover={{
-                bg: "app.primary.300",
+                bgColor: "light.primary.onHover",
                 boxShadow: "xl",
               }}
             />

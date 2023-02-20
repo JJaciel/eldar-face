@@ -4,11 +4,14 @@ import { Box } from "@chakra-ui/react";
 export const Surface = ({ children }: { children: React.ReactNode }) => {
   return (
     <Box
-      py={{ base: "0", sm: "10" }}
-      px={{ base: "4", sm: "10" }}
-      bg={"transparent"}
+      p={4}
+      bgColor="light.background.surface"
+      color="light.background.onSurface"
       boxShadow={{ base: "none", sm: "md" }}
       borderRadius={{ base: "none", sm: "xl" }}
+      // minH={{ base: "calc(100vh - 200px)", sm: "calc(100vh - 200px)" }}
+      display="flex"
+      flexDirection="column"
     >
       {children}
     </Box>

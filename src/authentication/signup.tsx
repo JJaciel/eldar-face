@@ -1,6 +1,6 @@
 import { useState, useCallback } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link as RouterLink } from "react-router-dom";
 import {
   FormErrorMessage,
   FormLabel,
@@ -9,13 +9,14 @@ import {
   Button,
   Icon,
   IconButton,
-  Text,
   Stack,
+  Box,
   InputGroup,
   InputLeftElement,
   InputRightElement,
   useDisclosure,
   useToast,
+  Link,
 } from "@chakra-ui/react";
 import {
   RiMailLine,
@@ -160,27 +161,33 @@ export const Signup = () => {
                 </FormErrorMessage>
               </FormControl>
               {/* signup */}
-              <Button
-                type="submit"
-                variant={"solid"}
-                isLoading={isSubmitting}
-                isDisabled={isLoading}
-                size={"md"}
-                fontSize="md"
-              >
-                signup
-              </Button>
+              <Box display="flex" justifyContent="center">
+                <Button
+                  minW="200px"
+                  type="submit"
+                  variant={"solid"}
+                  isLoading={isSubmitting}
+                  isDisabled={isLoading}
+                  size={"md"}
+                  fontSize="md"
+                >
+                  signup
+                </Button>
+              </Box>
+
               {/* login redirect */}
-              <Button
-                variant="ghost"
-                fontSize="xs"
-                size={"sm"}
-                onClick={() => {
-                  navigate("/signin");
-                }}
-              >
-                <Text fontWeight="bold">I already have an account</Text>
-              </Button>
+              <Box display="flex" justifyContent="center">
+                <Link
+                  mx="auto"
+                  maxW="200px"
+                  size="xs"
+                  as={RouterLink}
+                  to="/signin"
+                  textDecoration={"underline"}
+                >
+                  I already have an account
+                </Link>
+              </Box>
             </Stack>
           </form>
         </Surface>

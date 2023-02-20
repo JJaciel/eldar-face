@@ -22,10 +22,22 @@ export function AppLayout() {
     }
   }, [isLoading, authUser, isOnAuthRoute, navigate]);
 
+  const shouldDisplayNavbar = !!authUser;
+
   return (
-    <Box minH="100vh" bg="bg-white" display={"flex"} flexDir={"column"}>
-      {!!authUser && <Navigation />}
-      <Container my={"auto"} mx={0} p={0} maxW={"unset"} minW={"16em"}>
+    <Box
+      minH="100vh"
+      bgColor="light.background.main"
+      color="light.background.onMain"
+    >
+      {shouldDisplayNavbar && <Navigation />}
+      <Container
+        m={0}
+        p={0}
+        maxW={"unset"}
+        minW={"18em"}
+        pt={shouldDisplayNavbar ? "64px" : "unset"}
+      >
         <Fade in={!isLoading}>
           <Outlet />
         </Fade>

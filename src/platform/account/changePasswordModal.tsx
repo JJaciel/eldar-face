@@ -182,8 +182,6 @@ export const ChangePasswordModal = () => {
               isDisabled={isLoading}
               size={"lg"}
               fontSize="md"
-              bgColor={"app.primary.300"}
-              color={"white"}
             >
               Enviar
             </Button>

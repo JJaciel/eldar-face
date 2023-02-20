@@ -52,7 +52,7 @@ export function NavidationDrawer({
         minW={{ base: "90vw", sm: "50vw", md: "300px" }}
         maxW={{ base: "90vw", sm: "50vw", md: "min" }}
         borderRightRadius={{ base: "3xl", md: "none" }}
-        bgColor={"app.primary.100"}
+        bgColor={"light.background.surface"}
       >
         <DrawerHeader
           h={{ base: 14, sm: 20 }}
@@ -69,8 +69,10 @@ export function NavidationDrawer({
               onClick={onClose}
               aria-label="close menu"
               icon={<Icon as={RiMenu3Fill} />}
+              bgColor={"light.primary.main"}
+              color={"light.primary.onMain"}
               _hover={{
-                bg: "app.primary.300",
+                bgColor: "light.primary.onHover",
                 fontSize: "2xl",
                 transitionDelay: 0.1,
               }}
@@ -80,11 +82,18 @@ export function NavidationDrawer({
         <DrawerBody p={0}>
           <Stack display="block">
             {!isLargerThanMd && (
-              <HStack p={6} spacing={4} h="5.5rem" bg="app.primary.200">
+              <HStack
+                p={6}
+                spacing={4}
+                h="5.5rem"
+                bgColor="light.secondary.container"
+                color="light.secondary.onContainer"
+              >
                 <Avatar
                   name={displayName}
                   transition="all 0.2s"
-                  bg="app.primary.400"
+                  bgColor="light.secondary.main"
+                  color="light.secondary.onMain"
                   boxShadow="lg"
                 />
                 <Stack alignItems="start" spacing={0}>
@@ -110,9 +119,11 @@ export function NavidationDrawer({
                   variant="ghost"
                   width="full"
                   fontSize="lg"
+                  bgColor="light.primary.main"
+                  color="light.primary.onMain"
                   _focus={{ boxShadow: "none" }}
                   _hover={{
-                    bg: "app.primary.200",
+                    bg: "light.primary.onHover",
                     transitionDelay: 0.1,
                   }}
                   leftIcon={<Icon mr="4" as={RiListCheck2} />}
@@ -136,9 +147,11 @@ export function NavidationDrawer({
             variant="ghost"
             width="full"
             fontSize="md"
+            bgColor="light.secondary.main"
+            color="light.secondary.onMain"
             _focus={{ boxShadow: "none" }}
             _hover={{
-              bg: "app.primary.200",
+              bg: "light.secondary.onHover",
               transitionDelay: 0.1,
             }}
             onClick={onSignout}

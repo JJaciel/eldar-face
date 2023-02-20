@@ -4,9 +4,11 @@ import { Container } from "@chakra-ui/react";
 export const PageContainer = ({ children }: { children: React.ReactNode }) => {
   return (
     <Container
+      display="flex"
+      flexDirection="column"
       maxW="lg"
-      py={{ base: "12", md: "24" }}
-      px={{ base: "4", sm: "8" }}
+      p={4}
+      minH="calc(100vh - 64px)"
     >
       {children}
     </Container>

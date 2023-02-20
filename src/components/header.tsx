@@ -3,10 +3,8 @@ import { Box, Heading } from "@chakra-ui/react";
 
 export const Header = ({ children }: { children: React.ReactNode }) => {
   return (
-    <Box py={{ base: "0", sm: "4" }} px={{ base: "4", sm: "10" }}>
-      <Heading size={{ base: "lg", sm: "xl" }} textAlign={{ sm: "center" }}>
-        {children}
-      </Heading>
+    <Box p={{ base: "8px 16px", sm: "4" }} pl={{ sm: "0" }}>
+      <Heading size={{ base: "lg", sm: "xl" }}>{children}</Heading>
     </Box>
   );
 };

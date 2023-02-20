@@ -102,8 +102,8 @@ export const Account = () => {
               <Avatar
                 name={userDisplayName}
                 transition="all 0.2s"
-                color="white"
-                bg={"app.primary.300"}
+                bgColor="light.secondary.main"
+                color="light.secondary.onMain"
                 size={{ base: "lg", sm: "xl" }}
                 boxShadow="lg"
                 mx="auto"
@@ -116,7 +116,7 @@ export const Account = () => {
             >
               <HStack alignItems="center">
                 <Icon as={RiAtLine} />
-                <Text w="200px" py={2} px={4} color="app.primary.500">
+                <Text w="200px" py={2} px={4}>
                   {user?.email}
                 </Text>
               </HStack>
@@ -143,7 +143,7 @@ export const Account = () => {
                     py={2}
                     px={4}
                     border="2px"
-                    borderColor="app.primary.100"
+                    borderColor="gray.200"
                     w="200px"
                     h="44px"
                     textAlign="left"
