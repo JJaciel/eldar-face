@@ -5,7 +5,9 @@ import { Signin } from "../authentication/signin";
 import { Signup } from "../authentication/signup";
 import { EmailVerification } from "../authentication/emailVerification";
 import { NotFound } from "../platform/navigation/notFound";
-import { Location } from "../platform/dashboard/location";
+import { SetupContainer } from "../platform/setup/setupContainer";
+import { LocationsContainer } from "../platform/locations/locationsContainer";
+import { LocationContainer } from "../platform/locations/locationContainer";
 import { Account } from "../platform/account/account";
 import { UserLayout } from "../platform/userLayout";
 import { Items } from "../platform/items/items";
@@ -14,22 +16,45 @@ import { Lists } from "../platform/lists/lists";
 import { ListDetail } from "../platform/lists/listDetail";
 import { ListFulfill } from "../platform/lists/listFulfill";
 
+import { SetupUser } from "../platform/setup/setupUser";
+import { SetupLocation } from "../platform/setup/setupLocation";
+
 export const routes = [
   {
     element: <AppLayout />,
     children: [
+      {
+        path: "/setup",
+        element: <SetupContainer />, // outlet
+        children: [
+          {
+            index: true,
+            element: <SetupUser />,
+          },
+          {
+            path: ":locationId",
+            element: <SetupLocation />,
+          },
+        ],
+      },
       {
         element: <UserLayout />,
         children: [
           {
             path: "/",
             loader: async () => {
-              return redirect("/location");
+              return redirect("/locations");
             },
           },
           {
-            path: "/location",
-            element: <Location />,
+            path: "/locations",
+            element: <LocationsContainer />, // outlet
+            children: [
+              {
+                path: ":locationId",
+                element: <LocationContainer />,
+              },
+            ],
           },
           {
             path: "/items",
@@ -61,7 +86,6 @@ export const routes = [
           },
         ],
       },
-
       {
         path: "/signup",
         element: <Signup />,
