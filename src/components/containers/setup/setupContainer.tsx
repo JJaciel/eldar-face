@@ -1,63 +1,50 @@
 import { Outlet, useOutletContext } from "react-router-dom";
-import { useQuery, gql } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 
 import { PageContainer, LoadingScreen } from "../../common/display";
+import { GET_SETUP_USER, GET_SETUP_LOCATIONS } from "./setupQueries";
+import { User } from "../../../types/user";
+import { SetupLocation } from "../../../types/location";
 
-const GET_USER_DATA = gql`
-  query GetUserData {
-    user: getUser {
-      username
-    }
-    locations: getLocations {
-      locationId
-      items {
-        itemId
-      }
-      lists {
-        listId
-      }
-    }
-  }
-`;
+interface UserQueryResult {
+  user: User | null;
+  locations: SetupLocation[] | null;
+}
 
-type UserType = { username: string | null };
-type ItemType = { itemId: string };
-type ListType = { listId: string };
-type LocationType = {
-  locationId: string;
-  items: ItemType[] | null;
-  lists: ListType[] | null;
-};
-
-interface QueryResult {
-  user: UserType | null;
-  locations: LocationType[] | null;
+interface LocationsQueryResult {
+  user: User | null;
+  locations: SetupLocation[] | null;
 }
 
 type OutletContextType = {
-  user: UserType | null;
-  locations: LocationType[];
+  user: User | null;
+  locations: SetupLocation[];
 };
 
 export const SetupContainer = () => {
-  const { loading, error, data } = useQuery<QueryResult>(GET_USER_DATA);
+  const {
+    loading: userQueryLoading,
+    error: userQueryError,
+    data: userData,
+  } = useQuery<UserQueryResult>(GET_SETUP_USER.query);
+  const {
+    loading: locationsQueryLoading,
+    error: locationsQueryError,
+    data: locationsData,
+  } = useQuery<LocationsQueryResult>(GET_SETUP_LOCATIONS.query);
 
-  const user = data?.user || null;
-  const locations = data?.locations || [];
+  const isLoading = userQueryLoading || locationsQueryLoading;
+  const user = userData?.user || null;
+  const locations = locationsData?.locations || [];
 
-  if (error) {
-    return (
-      <PageContainer>
-        <LoadingScreen isLoading={loading} />
-        Error setup
-      </PageContainer>
-    );
+  if (userQueryError || locationsQueryError) {
+    return <PageContainer>Error setup</PageContainer>;
   }
 
   return (
     <PageContainer>
-      <LoadingScreen isLoading={loading} />
-      {!loading && <Outlet context={{ user, locations }} />}
+      <LoadingScreen isLoading={isLoading} />
+      {!isLoading && <Outlet context={{ user, locations }} />}
     </PageContainer>
   );
 };

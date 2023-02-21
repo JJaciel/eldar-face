@@ -1,12 +1,8 @@
 import { Stack, Text } from "@chakra-ui/react";
 
-interface ILocation {
-  locationId: string;
-  name: string;
-  items: { itemId: string }[] | null;
-}
+import { Location } from "../../../types/location";
 
-export const LocationDetail = ({ location }: { location: ILocation }) => {
+export const LocationDetail = ({ location }: { location: Location }) => {
   console.log("location");
   console.log(location);
   if (!location) return null;

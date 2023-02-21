@@ -2,8 +2,8 @@ import { Outlet, useNavigate } from "react-router-dom";
 import { Fade } from "@chakra-ui/react";
 import { useQuery, gql } from "@apollo/client";
 
-import { useAuthContext } from "../hooks/useAuthContext";
 import { UserProvider } from "../hooks/useUserContext";
+import { SetupUser, User } from "../../types/user";
 
 const GET_USER = gql`
   query GetUser {
@@ -15,42 +15,38 @@ const GET_USER = gql`
   }
 `;
 
-interface User {
-  userId: string;
-  email: string;
-  username?: string;
-}
-
 export function UserLayout() {
   const navigate = useNavigate();
-  const { authUser } = useAuthContext();
   const { loading, error, data } = useQuery<{
-    user: User;
+    user: SetupUser;
   }>(GET_USER);
 
-  const user = data?.user;
+  const setupUser = data?.user;
 
   if (error) {
     console.log(error);
     return null;
   }
 
-  if (!loading && !user) {
+  if (!loading && !setupUser) {
     console.log("error");
     return null;
   }
 
-  if (!loading && !user?.username) {
+  if (!loading && !setupUser?.username) {
     navigate("/setup");
+    return null;
   }
 
-  if (loading || !user) {
+  if (loading || !setupUser) {
     return null; // loading screen
   }
 
+  const user = setupUser as User;
+
   return (
     <UserProvider user={user}>
-      <Fade in={!!authUser}>
+      <Fade in={!!user}>
         <Outlet />
       </Fade>
     </UserProvider>

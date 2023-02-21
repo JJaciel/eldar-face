@@ -4,7 +4,7 @@ import { AppLayout } from "../layouts/appLayout";
 import { Signin } from "../containers/authentication/signin";
 import { Signup } from "../containers/authentication/signup";
 import { EmailVerification } from "../containers/authentication/emailVerification";
-import { NotFound } from "../navigation";
+import { NotFound } from "../common/error";
 import { SetupContainer } from "../containers/setup/setupContainer";
 import { LocationsContainer } from "../containers/locations/locationsContainer";
 import { LocationContainer } from "../containers/locations/locationContainer";

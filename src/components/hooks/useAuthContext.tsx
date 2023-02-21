@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import {
   onAuthStateChanged,
-  User,
   signInWithCustomToken,
   signInWithEmailAndPassword,
   signOut,
@@ -11,28 +10,28 @@ import { auth } from "../../services/firebase";
 import { createGenericContext } from "./createGenericContext";
 import { apiSignup, apiSignin } from "../../services/auth-api";
 
-interface AuthUser {
-  userId: string;
-  email: string | null;
-  emailVerified: boolean;
-}
+import { AuthContextUser } from "../../types/user";
+import {
+  FirebaseAuthUser,
+  LoginCredentialInput,
+} from "../../types/authentication";
 
 // Generate context
 const [useAuthContext, AuthContextProvider] = createGenericContext<{
   isLoading: boolean;
-  authUser?: AuthUser;
-  signup: (userAccount: { email: string; password: string }) => Promise<void>;
-  signin: (userAccount: { email: string; password: string }) => Promise<void>;
+  authUser?: AuthContextUser;
+  signup: (userAccount: LoginCredentialInput) => Promise<void>;
+  signin: (userAccount: LoginCredentialInput) => Promise<void>;
   signout: () => Promise<void>;
 }>();
 
 const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const [authUser, setAuthUser] = useState<User>();
+  const [authUser, setAuthUser] = useState<FirebaseAuthUser>();
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setAuthUser(user || undefined);
+      setAuthUser((user as FirebaseAuthUser) || undefined);
       setIsLoading(false);
     });
     return () => {
@@ -68,7 +67,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     sessionStorage.removeItem("token");
   };
 
-  const signup = async (userAccount: { email: string; password: string }) => {
+  const signup = async (userAccount: LoginCredentialInput) => {
     const apiResponse = await apiSignup(userAccount);
     const bearerToken: string = apiResponse.headers["authorization"];
     storeToken(bearerToken);
@@ -81,13 +80,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     clearToken();
   };
 
-  const signin = async ({
-    email,
-    password,
-  }: {
-    email: string;
-    password: string;
-  }) => {
+  const signin = async ({ email, password }: LoginCredentialInput) => {
     try {
       const authUserCredential = await signInWithEmailAndPassword(
         auth,

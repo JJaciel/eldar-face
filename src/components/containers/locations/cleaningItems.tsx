@@ -11,22 +11,9 @@ import {
 import { RiMoreLine } from "react-icons/ri";
 
 import { CleaningItemMenu } from "./cleaningItemMenu";
+import { Item } from "../../../types/item";
 
-interface CleaningItem {
-  title: string;
-  acceptanceCriteria: string;
-  area: null | string[];
-  priority: null | number;
-  estimation: null | number;
-  order: null | number;
-  frequency: null;
-}
-
-export const CleaningItems = ({
-  cleaningItems,
-}: {
-  cleaningItems: CleaningItem[];
-}) => {
+export const CleaningItems = ({ cleaningItems }: { cleaningItems: Item[] }) => {
   return (
     <Stack>
       {cleaningItems.map(({ title, area }, idx) => {

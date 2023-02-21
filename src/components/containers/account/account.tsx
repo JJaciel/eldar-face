@@ -1,5 +1,5 @@
 import { useCallback } from "react";
-import { useMutation, gql } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import {
   Avatar,
   ButtonGroup,
@@ -20,6 +20,7 @@ import { CheckIcon, CloseIcon } from "@chakra-ui/icons";
 
 import { useUserContext } from "../../hooks/useUserContext";
 import { PageContainer, Header, Surface } from "../../common/display";
+import { UPDATE_USER_USERNAME } from "./accountMutations";
 
 const EditableControls = () => {
   const { isEditing, getSubmitButtonProps, getCancelButtonProps } =
@@ -40,14 +41,6 @@ const EditableControls = () => {
     </ButtonGroup>
   ) : null;
 };
-
-const UPDATE_USER_USERNAME = gql`
-  mutation UpdateUserUsername($username: String!) {
-    updateUserUsername(username: $username) {
-      username
-    }
-  }
-`;
 
 export const Account = () => {
   const toast = useToast();

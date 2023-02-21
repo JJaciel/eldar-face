@@ -2,12 +2,7 @@ import { Box, Text } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 
 import { Surface } from "../../common/display";
-
-interface ILocation {
-  locationId: string;
-  name: string;
-  items: { itemId: string; name: string }[] | null;
-}
+import { Location } from "../../../types/location";
 
 const LocationListItem = ({
   locationId,
@@ -30,7 +25,7 @@ const LocationListItem = ({
   );
 };
 
-export const LocationsList = ({ locations }: { locations: ILocation[] }) => {
+export const LocationsList = ({ locations }: { locations: Location[] }) => {
   return (
     <Surface>
       {locations.map(({ locationId, name }) => {

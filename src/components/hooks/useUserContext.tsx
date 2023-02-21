@@ -1,12 +1,7 @@
 import React from "react";
 
 import { createGenericContext } from "./createGenericContext";
-
-interface User {
-  userId: string;
-  email: string;
-  username?: string;
-}
+import { User } from "../../types/user";
 
 // Generate context
 const [useUserContext, UserContextProvider] = createGenericContext<{

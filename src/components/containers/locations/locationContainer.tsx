@@ -1,5 +1,5 @@
 import { Fade } from "@chakra-ui/react";
-import { useQuery, gql } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import { useParams } from "react-router-dom";
 
 import {
@@ -11,35 +11,14 @@ import {
 import { ErrorView } from "../../common/error";
 import { NotFoundView } from "../../common/emptyState";
 import { LocationDetail } from "./locationDetail";
-
-const GET_LOCATION = gql`
-  query GetLocation($locationId: String!) {
-    location: getLocation(locationId: $locationId) {
-      locationId
-      name
-      items {
-        itemId
-      }
-      lists {
-        listId
-      }
-    }
-  }
-`;
-
-// to use centralized type
-interface LocationObject {
-  locationId: string;
-  name: string;
-  items: { itemId: string }[];
-  lists: { listId: string }[];
-}
+import { GET_LOCATION } from "./locationsQueries";
+import { Location } from "../../../types/location";
 
 export const LocationContainer = () => {
   const { locationId } = useParams();
   const { loading, error, data } = useQuery<{
-    location: LocationObject;
-  }>(GET_LOCATION, {
+    location: Location;
+  }>(GET_LOCATION.query, {
     variables: {
       locationId: locationId as string,
     },

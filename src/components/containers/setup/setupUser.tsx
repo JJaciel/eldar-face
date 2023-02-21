@@ -1,11 +1,13 @@
 import { useState } from "react";
-import { useMutation, gql } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "@chakra-ui/react";
 
 import { Form, TextInput, CheckboxInput } from "../../common/form";
 import { Surface, ContinueButton } from "../../common/display";
 import { useSetupContext } from "./setupContainer";
+import { SETUP_MUTATION } from "./setupMutations";
+import { GET_SETUP_USER, GET_SETUP_LOCATIONS } from "./setupQueries";
 
 interface StepFormValues {
   userName: string;
@@ -13,16 +15,14 @@ interface StepFormValues {
   useWizard: boolean;
 }
 
-const SETUP_MUTATION = gql`
-  mutation SetupUser($username: String!, $locationName: String!) {
-    user: updateUserUsername(username: $username) {
-      username
-    }
-    location: createLocation(locationName: $locationName) {
-      locationId
-    }
-  }
-`;
+type SetupMutationResult = {
+  user: {
+    username: string;
+  };
+  location: {
+    locationId: string;
+  };
+};
 
 export const SetupUser = () => {
   const [shouldUseWizard, setShouldUseWizard] = useState(true);
@@ -30,27 +30,30 @@ export const SetupUser = () => {
   const navigate = useNavigate();
   const { user, locations } = useSetupContext();
 
-  const [setupUser, { loading, called }] = useMutation(SETUP_MUTATION, {
-    refetchQueries: ["GetUserData"],
-    onError: () => {
-      toast({
-        title: "Error updating username",
-        status: "error",
-        duration: 3000,
-        isClosable: true,
-        position: "top",
-      });
-    },
-    onCompleted: ({ location }: { location: { locationId: string } }) => {
-      setTimeout(() => {
-        if (shouldUseWizard) {
-          navigate(location.locationId);
-          return;
-        }
-        navigate("/locations");
-      }, 1000);
-    },
-  });
+  const [setupUser, { loading, called }] = useMutation<SetupMutationResult>(
+    SETUP_MUTATION,
+    {
+      refetchQueries: [GET_SETUP_USER.name, GET_SETUP_LOCATIONS.name],
+      onError: () => {
+        toast({
+          title: "Error updating username",
+          status: "error",
+          duration: 3000,
+          isClosable: true,
+          position: "top",
+        });
+      },
+      onCompleted: ({ location }) => {
+        setTimeout(() => {
+          if (shouldUseWizard) {
+            navigate(location.locationId);
+            return;
+          }
+          navigate("/locations");
+        }, 1000);
+      },
+    }
+  );
 
   const username = user?.username;
   const hasAtLeastOneLocation = !!locations.length;

@@ -28,11 +28,7 @@ import {
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { getErrorMessage } from "./errorHandler";
 import { PageContainer, Header, Surface } from "../../common/display";
-
-interface FormValues {
-  email: string;
-  password: string;
-}
+import { LoginCredentialInput } from "../../../types/authentication";
 
 export const Signup = () => {
   const { isOpen, onToggle } = useDisclosure();
@@ -47,7 +43,7 @@ export const Signup = () => {
     setFocus,
     reset,
     formState: { errors, isSubmitting },
-  } = useForm<FormValues>();
+  } = useForm<LoginCredentialInput>();
   const navigate = useNavigate();
 
   const handleError = useCallback(
@@ -74,7 +70,7 @@ export const Signup = () => {
   );
 
   const onSubmit = useCallback(
-    async ({ email, password }: FormValues) => {
+    async ({ email, password }: LoginCredentialInput) => {
       setIsLoading(true);
       try {
         await signup({ email, password });

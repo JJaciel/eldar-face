@@ -1,5 +1,5 @@
 import { Fade } from "@chakra-ui/react";
-import { useQuery, gql } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import { Outlet, useNavigate } from "react-router-dom";
 
 import {
@@ -11,31 +11,14 @@ import {
 import { ErrorView } from "../../common/error";
 import { NotFoundView } from "../../common/emptyState";
 import { LocationsList } from "./locationsList";
-
-const GET_LOCATIONS = gql`
-  query GetLocations {
-    locations: getLocations {
-      locationId
-      name
-      items {
-        itemId
-        name
-      }
-    }
-  }
-`;
-
-interface LocationObject {
-  locationId: string;
-  name: string;
-  items: { itemId: string; name: string }[];
-}
+import { GET_LOCATIONS } from "./locationsQueries";
+import { Location } from "../../../types/location";
 
 export const LocationsContainer = () => {
   const navigate = useNavigate();
   const { loading, error, data } = useQuery<{
-    locations: LocationObject[];
-  }>(GET_LOCATIONS);
+    locations: Location[];
+  }>(GET_LOCATIONS.query);
 
   const locations = data?.locations || [];
 
