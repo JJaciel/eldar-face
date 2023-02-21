@@ -1,23 +1,22 @@
 import { redirect } from "react-router-dom";
 
-import { AppLayout } from "../appLayout";
-import { Signin } from "../authentication/signin";
-import { Signup } from "../authentication/signup";
-import { EmailVerification } from "../authentication/emailVerification";
-import { NotFound } from "../navigation/notFound";
-import { SetupContainer } from "../setup/setupContainer";
-import { LocationsContainer } from "../locations/locationsContainer";
-import { LocationContainer } from "../locations/locationContainer";
-import { Account } from "../account/account";
-import { UserLayout } from "../userLayout";
-import { Items } from "../items/items";
-import { ItemDetail } from "../items/itemDetail";
-import { Lists } from "../lists/lists";
-import { ListDetail } from "../lists/listDetail";
-import { ListFulfill } from "../lists/listFulfill";
-
-import { SetupUser } from "../setup/setupUser";
-import { SetupLocation } from "../setup/setupLocation";
+import { AppLayout } from "../layouts/appLayout";
+import { Signin } from "../containers/authentication/signin";
+import { Signup } from "../containers/authentication/signup";
+import { EmailVerification } from "../containers/authentication/emailVerification";
+import { NotFound } from "../navigation";
+import { SetupContainer } from "../containers/setup/setupContainer";
+import { LocationsContainer } from "../containers/locations/locationsContainer";
+import { LocationContainer } from "../containers/locations/locationContainer";
+import { Account } from "../containers/account/account";
+import { UserLayout } from "../layouts/userLayout";
+import { Items } from "../containers/items/items";
+import { ItemDetail } from "../containers/items/itemDetail";
+import { Lists } from "../containers/lists/lists";
+import { ListDetail } from "../containers/lists/listDetail";
+import { ListFulfill } from "../containers/lists/listFulfill";
+import { SetupUser } from "../containers/setup/setupUser";
+import { SetupLocation } from "../containers/setup/setupLocation";
 
 export const routes = [
   {

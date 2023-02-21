@@ -1,7 +1,7 @@
 import { useCallback } from "react";
 import { useDisclosure, useMediaQuery } from "@chakra-ui/react";
 
-import { useAuthContext } from "../authentication/useAuthContext";
+import { useAuthContext } from "../hooks/useAuthContext";
 import { NavigationBar } from "./navigationBar";
 import { NavidationDrawer } from "./navigationDrawer";
 
