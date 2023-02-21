@@ -1,6 +1,7 @@
 import { Box, Text } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 
+import { Header, Content } from "../../common/display";
 import { useLocationsOutletContext } from "./locationsOutlet";
 
 const LocationsListItem = ({
@@ -13,6 +14,9 @@ const LocationsListItem = ({
   const navigate = useNavigate();
   return (
     <Box
+      borderRadius={4}
+      boxShadow="md"
+      p={2}
       w="100%"
       bgColor="light.primary.container"
       onClick={() => {
@@ -28,15 +32,18 @@ export const Locations = () => {
   const { locations } = useLocationsOutletContext();
   return (
     <>
-      {locations.map(({ locationId, name }) => {
-        return (
-          <LocationsListItem
-            key={locationId}
-            locationId={locationId}
-            locationName={name}
-          />
-        );
-      })}
+      <Header>Locations</Header>
+      <Content>
+        {locations.map(({ locationId, name }) => {
+          return (
+            <LocationsListItem
+              key={locationId}
+              locationId={locationId}
+              locationName={name}
+            />
+          );
+        })}
+      </Content>
     </>
   );
 };

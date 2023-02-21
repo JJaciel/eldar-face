@@ -41,7 +41,7 @@ export const LocationsOutlet = () => {
   return (
     <PageContainer>
       <LoadingScreen isLoading={loading} />
-      <Header>Locations</Header>
+      <Header>Locations outlet</Header>
       <Fade in={!loading}>
         <Outlet
           context={{

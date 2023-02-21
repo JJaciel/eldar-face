@@ -1,6 +1,7 @@
-import { Stack, Text } from "@chakra-ui/react";
+import { Text } from "@chakra-ui/react";
 
 import { useLocationContext } from "./locationContainer";
+import { Content } from "../../common/display";
 
 export const LocationDetail = () => {
   // location should come from ctx
@@ -8,11 +9,11 @@ export const LocationDetail = () => {
 
   if (!location) return null;
   return (
-    <Stack spacing={8}>
+    <Content>
       {/* name */}
       <Text>{location.name}</Text>
       <Text>{location.locationId}</Text>
       <Text>{`items count: ${location.items?.length || 0}`}</Text>
-    </Stack>
+    </Content>
   );
 };
