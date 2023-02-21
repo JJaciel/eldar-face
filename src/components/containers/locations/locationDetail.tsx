@@ -1,10 +1,11 @@
 import { Stack, Text } from "@chakra-ui/react";
 
-import { Location } from "../../../types/location";
+import { useLocationContext } from "./locationContainer";
 
-export const LocationDetail = ({ location }: { location: Location }) => {
-  console.log("location");
-  console.log(location);
+export const LocationDetail = () => {
+  // location should come from ctx
+  const { location } = useLocationContext();
+
   if (!location) return null;
   return (
     <Stack spacing={8}>

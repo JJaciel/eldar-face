@@ -1,18 +1,16 @@
 import { Fade } from "@chakra-ui/react";
 import { useQuery } from "@apollo/client";
-import { useParams } from "react-router-dom";
+import { useParams, Outlet, useOutletContext } from "react-router-dom";
 
-import {
-  PageContainer,
-  Header,
-  Surface,
-  LoadingScreen,
-} from "../../common/display";
+import { Header, LoadingScreen } from "../../common/display";
 import { ErrorView } from "../../common/error";
 import { NotFoundView } from "../../common/emptyState";
-import { LocationDetail } from "./locationDetail";
 import { GET_LOCATION } from "./locationsQueries";
 import { Location } from "../../../types/location";
+
+type OutletContextType = {
+  location: Location;
+};
 
 export const LocationContainer = () => {
   const { locationId } = useParams();
@@ -39,16 +37,22 @@ export const LocationContainer = () => {
   }
 
   return (
-    <PageContainer>
+    <>
       <LoadingScreen isLoading={loading} />
       <Header>Location</Header>
       <Fade in={!loading}>
         {location && (
-          <Surface>
-            <LocationDetail location={location} />
-          </Surface>
+          <Outlet
+            context={{
+              location,
+            }}
+          />
         )}
       </Fade>
-    </PageContainer>
+    </>
   );
+};
+
+export const useLocationContext = () => {
+  return useOutletContext<OutletContextType>();
 };

@@ -1,10 +1,9 @@
 import { Box, Text } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 
-import { Surface } from "../../common/display";
-import { Location } from "../../../types/location";
+import { useLocationsOutletContext } from "./locationsOutlet";
 
-const LocationListItem = ({
+const LocationsListItem = ({
   locationId,
   locationName,
 }: {
@@ -25,18 +24,19 @@ const LocationListItem = ({
   );
 };
 
-export const LocationsList = ({ locations }: { locations: Location[] }) => {
+export const Locations = () => {
+  const { locations } = useLocationsOutletContext();
   return (
-    <Surface>
+    <>
       {locations.map(({ locationId, name }) => {
         return (
-          <LocationListItem
+          <LocationsListItem
             key={locationId}
             locationId={locationId}
             locationName={name}
           />
         );
       })}
-    </Surface>
+    </>
   );
 };

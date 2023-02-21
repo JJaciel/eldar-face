@@ -1,26 +1,29 @@
-import { Stack, Grid, GridItem } from "@chakra-ui/react";
+import { Text, Stack } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 
-import { PageContainer, Header, Surface } from "../../common/display";
+import { Header } from "../../common/display";
+import { useLocationItemsOutlet } from "../locations/locationItems";
 
 export const Items = () => {
+  const navigate = useNavigate();
+  const { items } = useLocationItemsOutlet();
+
   return (
-    <PageContainer>
-      <Stack spacing="8">
-        <Header>Items</Header>
-        <Surface>
-          <Grid
-            h="200px"
-            templateRows="repeat(2, 1fr)"
-            templateColumns="repeat(5, 1fr)"
-            gap={4}
-          >
-            <GridItem rowSpan={2} colSpan={1} bg="tomato" />
-            <GridItem colSpan={2} bg="papayawhip" />
-            <GridItem colSpan={2} bg="papayawhip" />
-            <GridItem colSpan={4} bg="tomato" />
-          </Grid>
-        </Surface>
+    <>
+      <Header>{`Items: ${items.length}`}</Header>
+      <Stack>
+        {items.map(({ itemId }) => {
+          return (
+            <Text
+              onClick={() => {
+                navigate(itemId);
+              }}
+            >
+              {itemId}
+            </Text>
+          );
+        })}
       </Stack>
-    </PageContainer>
+    </>
   );
 };

@@ -1,6 +1,6 @@
 import { Fade } from "@chakra-ui/react";
 import { useQuery } from "@apollo/client";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useNavigate, useOutletContext } from "react-router-dom";
 
 import {
   PageContainer,
@@ -10,11 +10,14 @@ import {
 } from "../../common/display";
 import { ErrorView } from "../../common/error";
 import { NotFoundView } from "../../common/emptyState";
-import { LocationsList } from "./locationsList";
 import { GET_LOCATIONS } from "./locationsQueries";
 import { Location } from "../../../types/location";
 
-export const LocationsContainer = () => {
+type LocationsOutletContext = {
+  locations: Location[];
+};
+
+export const LocationsOutlet = () => {
   const navigate = useNavigate();
   const { loading, error, data } = useQuery<{
     locations: Location[];
@@ -40,11 +43,17 @@ export const LocationsContainer = () => {
       <LoadingScreen isLoading={loading} />
       <Header>Locations</Header>
       <Fade in={!loading}>
-        <Outlet />
-        <LocationsList locations={locations} />
+        <Outlet
+          context={{
+            locations,
+          }}
+        />
       </Fade>
-
       <AddButton />
     </PageContainer>
   );
+};
+
+export const useLocationsOutletContext = () => {
+  return useOutletContext<LocationsOutletContext>();
 };
